@@ -1,0 +1,22 @@
+Skenario Testing
+
+MovieViewModelTest
+1. Memastikan Data Tidak Null
+
+DetailViewModelTest
+1. Memastikan Data tidak Null
+2. Memastikan Data sesuai dengan id selected
+3. Menampilkan data detail sesuai id selected
+
+MainActivityTest
+1. Memastikan data tidak Null
+2. Menampilkan data Tv
+3. Menampilkan data Movie
+
+MainActivityInsTest
+1. Memastikan data tidak null
+2. Menampilkan data Movie
+3. Menampilkan data movie detail sesuai dengan id selected
+4. Menampilkan data tv 
+5. Menampilkan data tv detail sesuai dengan id selected
+6. Mensetting Idling Registry

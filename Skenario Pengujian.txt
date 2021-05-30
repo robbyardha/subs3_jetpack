@@ -1,0 +1,26 @@
+Skenario Testing
+
+MovieViewModelTest
+1. Memastikan Data sejumlah 10
+2. Memastikan Data Tidak Null
+
+TvViewModelTest
+1. Memastikan Data Tidak Null
+2. Memastikan data sejumlah 11
+
+DetailViewModelTest
+1. Memastikan Data tidak Null
+2. Memastikan Data sesuai dengan id selected
+3. Menampilkan data detail sesuai id selected
+
+MainActivityTest
+1. Memastikan data tidak Null
+2. Menampilkan data
+
+MainActivityInsTest
+1. Memastikan data tidak null
+2. Menampilkan data Movie sejumlah 10
+3. Menampilkan data movie detail sesuai dengan id selected
+4. Menampilkan data tv sejumlah 11
+5. Menampilkan data tv detail sesuai dengan id selected
+6. Menampilkan data tv_title, tv_genre, tv_duration, tv_year, tv_score, tv_duration sesuai dengan Entity
