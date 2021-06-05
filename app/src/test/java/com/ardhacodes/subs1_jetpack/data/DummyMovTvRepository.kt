@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DummyMovTvRepository(private val remote: RemoteDataSource) : MovTvDataSource {
-    override fun getPopularMovies(): LiveData<List<MovieTvEntity>> {
+    override fun getPopularMovies(): LiveData<Any> {
         val listMovRes = MutableLiveData<List<MovieTvEntity>>()
         val Coroutinescp = CoroutineScope(Dispatchers.IO)
         Coroutinescp.launch {

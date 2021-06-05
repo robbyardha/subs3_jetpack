@@ -1,84 +1,67 @@
 package com.ardhacodes.subs1_jetpack.data.source.remote
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.ardhacodes.subs1_jetpack.data.source.remote.api.ApiConfig
+import com.ardhacodes.subs1_jetpack.data.source.remote.api.ApiService
 import com.ardhacodes.subs1_jetpack.data.source.remote.response.MovieResponse
 import com.ardhacodes.subs1_jetpack.data.source.remote.response.TvResponse
+import com.ardhacodes.subs1_jetpack.data.source.remote.vo.ApiResponse
 import com.ardhacodes.subs1_jetpack.utils.EspressoIdlingResource
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.await
+import okio.IOException
+import javax.inject.Inject
 
-class RemoteDataSource {
-    companion object {
-        @Volatile
-        private var instance: RemoteDataSource? = null
+class RemoteDataSource @Inject constructor(val apiService: ApiService) {
 
-        fun getInstance(): RemoteDataSource = instance ?: synchronized(this)
-        {
-            instance ?: RemoteDataSource()
-        }
-    }
 
-    suspend fun getPopularMovies(callback: LoadPopularMoviesCallback) {
+    fun getPopularMovies(): LiveData<ApiResponse<List<MovieResponse>>> {
         EspressoIdlingResource.CountIncrement()
 //        ApiConfig.instance.getPopularMovie().await().isSuccessful
-        var intanceApiConfig = ApiConfig.instanceApiService
-        intanceApiConfig.getPopularMovie().await().result?.let { getlistMovie ->
-            callback.responseAllMovie(
-                getlistMovie
-            )
-            EspressoIdlingResource.CountDecrement()
+        val resMovResponse = MutableLiveData<ApiResponse<List<MovieResponse>>>()
+        val coroutineScope = CoroutineScope(Dispatchers.IO)
+        coroutineScope.launch {
+            try {
+                val response = apiService.getPopularMovie().await()
+                resMovResponse.postValue(ApiResponse.success(response.result!!))
+            } catch (e: IOException) {
+                e.printStackTrace()
+                resMovResponse.postValue(
+                    ApiResponse.error(
+                        e.message.toString(),
+                        mutableListOf()
+                    )
+                )
+            }
         }
+        EspressoIdlingResource.CountDecrement()
+        return resMovResponse
     }
 
-    suspend fun getMovieDetail(movieId: Int, callback: LoadMovieDetailCallback) {
+
+    fun getPopularTv(): LiveData<ApiResponse<List<TvResponse>>> {
         EspressoIdlingResource.CountIncrement()
-        var intanceApiConfig = ApiConfig.instanceApiService
-        intanceApiConfig.getDetailMovie(movieId).await().let { getdetmovie ->
-            callback.responseDetailMovie(
-                getdetmovie
-            )
-            EspressoIdlingResource.CountDecrement()
+//        ApiConfig.instance.getPopularMovie().await().isSuccessful
+        val resTvResponse = MutableLiveData<ApiResponse<List<TvResponse>>>()
+        val coroutineScope = CoroutineScope(Dispatchers.IO)
+        coroutineScope.launch {
+            try {
+                val response = apiService.getTvPopular().await()
+                resTvResponse.postValue(ApiResponse.success(response.result!!))
+            } catch (e: IOException) {
+                e.printStackTrace()
+                resTvResponse.postValue(
+                    ApiResponse.error(
+                        e.message.toString(),
+                        mutableListOf()
+                    )
+                )
+            }
         }
-    }
-
-    suspend fun getTvList(callback: LoadTvCallback) {
-        EspressoIdlingResource.CountIncrement()
-        var intanceApiConfig = ApiConfig.instanceApiService
-        intanceApiConfig.getTvPopular().await().result?.let { getlistTvShow ->
-            callback.responseAllTv(
-                getlistTvShow
-            )
-            EspressoIdlingResource.CountDecrement()
-        }
-    }
-
-
-    suspend fun getTvDetail(tvShowId: Int, callback: LoadTvDetailCallback) {
-        EspressoIdlingResource.CountIncrement()
-        var intanceApiConfig = ApiConfig.instanceApiService
-        intanceApiConfig.getDetailTvShow(tvShowId).await().let { getdettvShow ->
-            callback.responseDetailTv(
-                getdettvShow
-            )
-            EspressoIdlingResource.CountDecrement()
-
-        }
-    }
-
-
-    interface LoadPopularMoviesCallback {
-        fun responseAllMovie(movieResponse: List<MovieResponse>)
-    }
-
-    interface LoadMovieDetailCallback {
-        fun responseDetailMovie(movieResponse: MovieResponse)
-    }
-
-
-    interface LoadTvCallback {
-        fun responseAllTv(tvShowResponse: List<TvResponse>)
-    }
-
-    interface LoadTvDetailCallback {
-        fun responseDetailTv(tvShowResponse: TvResponse)
+        EspressoIdlingResource.CountDecrement()
+        return resTvResponse
     }
 }
