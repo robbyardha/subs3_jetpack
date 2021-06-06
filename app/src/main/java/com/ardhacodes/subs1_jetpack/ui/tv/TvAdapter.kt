@@ -11,21 +11,21 @@ import com.ardhacodes.subs1_jetpack.R
 import com.ardhacodes.subs1_jetpack.data.MovieTvEntity
 import com.ardhacodes.subs1_jetpack.data.source.datalocal.MovieEntity
 import com.ardhacodes.subs1_jetpack.data.source.datalocal.TvEntity
+import com.ardhacodes.subs1_jetpack.databinding.ItemMovBinding
 import com.ardhacodes.subs1_jetpack.databinding.ItemTvBinding
 import com.ardhacodes.subs1_jetpack.ui.CallbackMovTv
 import com.ardhacodes.subs1_jetpack.ui.detail.DetailMovieTvActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.item_tv.view.*
 
-class TvAdapter(private val callback:TvFragmentCallback) : PagedListAdapter<TvEntity, TvAdapter.ListViewHolder>(DIFF_CALLBACK) {
+class TvAdapter : PagedListAdapter<TvEntity, TvAdapter.TvViewHolder>(CallbackDiffUtil) {
     private val listTv = ArrayList<MovieTvEntity>()
     val path = "https://image.tmdb.org/t/p/"
     val image_w185 = "w185"
     val image_w780 = "w780"
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvEntity>(){
+        private val CallbackDiffUtil = object : DiffUtil.ItemCallback<TvEntity>(){
             override fun areItemsTheSame(oldItem: TvEntity, newItem: TvEntity): Boolean {
                 return oldItem.idtv == newItem.idtv
             }
@@ -37,23 +37,24 @@ class TvAdapter(private val callback:TvFragmentCallback) : PagedListAdapter<TvEn
         }
     }
 
-    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(data: TvEntity) {
-            with(itemView) {
-                data.poster_path?.let {
-                    Glide.with(itemView.context)
-                        .load(path + image_w185 + it)
-                        .apply(RequestOptions())
-                        .into(iv_poster)
-                }
-                item_title.text = data.title
-                item_genre.text = "Release : ${data.release_date}"
-                item_yearrelease.text = "Vote Average : ${data.vote_average}"
-                item_score.text = "Popularity : ${data.popularity}"
-                itemView.setOnClickListener {
-                    callback.onItemClicked(data)
-                }
+    private lateinit var onItemClickCallback: OnItemClickCallback
 
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+
+    inner class TvViewHolder(private val binding: ItemTvBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: TvEntity) {
+            with(binding) {
+                itemTitle.text = data.title
+                itemGenre.text = "Release : ${data.release_date}"
+                itemYearrelease.text = "Vote Average : ${data.vote_average}"
+                itemScore.text = "Popularity : ${data.popularity}"
+
+                com.bumptech.glide.Glide.with(itemView.context)
+                    .load(path + image_w185 + data.poster_path)
+                    .apply(RequestOptions())
+                    .into(ivPoster)
             }
 
         }
@@ -78,13 +79,12 @@ class TvAdapter(private val callback:TvFragmentCallback) : PagedListAdapter<TvEn
 //        }
 //    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        return ListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_tv, parent, false)
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvViewHolder {
+        val itemTvBinding = ItemTvBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return TvViewHolder(itemTvBinding)
     }
 
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TvViewHolder, position: Int) {
         val tv = getItem(position)
         if (tv != null) {
             holder.bind(tv)
@@ -92,6 +92,7 @@ class TvAdapter(private val callback:TvFragmentCallback) : PagedListAdapter<TvEn
     }
 
 
-
-
+    interface OnItemClickCallback {
+        fun onItemClicked(id: String)
+    }
 }

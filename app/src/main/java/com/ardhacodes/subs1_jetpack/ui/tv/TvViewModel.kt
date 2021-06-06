@@ -12,12 +12,9 @@ import com.ardhacodes.subs1_jetpack.vo.Resource
 import javax.inject.Inject
 
 //class TvViewModel(val TvRepository: MovTvRepository):ViewModel() {
-class TvViewModel @Inject constructor(val movTvRepository: MovTvRepository) : ViewModel() {
-    fun getdDataTv(): List<MovieTvEntity> = MoviesTvDataDummy.DataTvShow()
+class TvViewModel(val movTvRepository: MovTvRepository) : ViewModel() {
+//    fun getdDataTv(): List<MovieTvEntity> = MoviesTvDataDummy.DataTvShow()
 
-    //    fun getDataTvAPI() : LiveData<List<MovieTvEntity>>
-//    {
-//       return TvRepository.getTv()
-//    }
-    fun getListPopularTv(): LiveData<Resource<PagedList<TvEntity>>> = movTvRepository.getTv()
+    fun getDataTvAPI() = movTvRepository.getPopularTv()
+//    fun getListPopularTv(): LiveData<Resource<PagedList<TvEntity>>> = movTvRepository.getTv()
 }

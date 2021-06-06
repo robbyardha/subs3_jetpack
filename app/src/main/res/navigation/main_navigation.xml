@@ -6,28 +6,32 @@
     app:startDestination="@id/navigation_movie">
 
     <fragment
-        android:id="@+id/navigation_movie"
+        android:id="@+id/movieFragment"
         android:name="com.ardhacodes.subs1_jetpack.ui.movie.MovieFragment"
-        android:label="@string/toolbar_title_movie"
-        tools:layout="@layout/fragment_movie" />
+        android:label="MovieFragment" >
+        <action
+            android:id="@+id/action_movieFragment_to_tvShowFragment"
+            app:destination="@id/tvFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_movieFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
     <fragment
-        android:id="@+id/navigation_tvshow"
+        android:id="@+id/tvFragment"
         android:name="com.ardhacodes.subs1_jetpack.ui.tv.TvFragment"
-        android:label="@string/toolbar_title_tvshow"
-        tools:layout="@layout/fragment_tv" />
+        android:label="fragment_tv_show"
+        tools:layout="@layout/fragment_tv_show" />
     <fragment
-        android:id="@+id/navigation_favorite"
-        android:name="com.ardhacodes.subs1_jetpack.ui.favorite.FavoriteFragment"
-        android:label="@string/bottom_nav_title_favorite"
+        android:id="@+id/favoriteFragment"
+        android:name="com.riyaldi.moviecatalogue.ui.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
-    <fragment
-        android:id="@+id/navigation_favorite_movie"
-        android:name="com.ardhacodes.subs1_jetpack.ui.favorite.moviefavorite.MovieFavFragment"
-        android:label="fragment_favorite_movie"
-        tools:layout="@layout/fragment_movie_fav" />
-    <fragment
-        android:id="@+id/navigation_favorite_tvshow"
-        android:name="com.ardhacodes.subs1_jetpack.ui.favorite.tvfavorite.TvFavFragment"
-        android:label="fragment_favorite_tv_show"
-        tools:layout="@layout/fragment_tv_fav" />
 </navigation>
