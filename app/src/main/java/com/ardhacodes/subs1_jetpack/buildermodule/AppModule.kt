@@ -38,12 +38,14 @@ class AppModule {
         @Provides
         fun provideRemoteDataSource(apiService: ApiService): RemoteDataSource {
             return RemoteDataSource(apiService)
-
         }
 
         @Singleton
         @Provides
-        fun provideMovTvRepository(remoteDataSource: RemoteDataSource, localDataSource: LocalDataSource): MovTvRepository {
+        fun provideMovTvRepository(
+            remoteDataSource: RemoteDataSource,
+            localDataSource: LocalDataSource)
+        : MovTvRepository {
             return MovTvRepository(remoteDataSource, localDataSource)
         }
 

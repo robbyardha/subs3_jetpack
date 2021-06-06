@@ -3,8 +3,10 @@ package com.ardhacodes.subs1_jetpack.buildermodule.main
 import com.ardhacodes.subs1_jetpack.ui.favorite.FavoriteFragment
 import com.ardhacodes.subs1_jetpack.ui.movie.MovieFragment
 import com.ardhacodes.subs1_jetpack.ui.tv.TvFragment
+import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
+@Module
 abstract class MainFragmentBuildersModule {
     @ContributesAndroidInjector
     abstract fun contributeMovieFragment() : MovieFragment

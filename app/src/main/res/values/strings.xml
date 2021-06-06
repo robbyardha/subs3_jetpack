@@ -22,4 +22,9 @@
     <string name="empty_state_title_no_favorite_item">No Favorite Item</string>
     <string name="empty_state_desc_no_favorite_item_movie">No Description Favorite</string>
     <string name="empty_state_desc_no_favorite_item_tvshow">No Item</string>
+    <string name="bottom_nav_title_movie">Movie</string>
+    <string name="bottom_nav_title_tvshow">Tv Show</string>
+    <string name="bottom_nav_title_favorite">Favorite</string>
+    <string name="toolbar_title_movie">Movie</string>
+    <string name="toolbar_title_tvshow">Tv Show</string>
 </resources>
