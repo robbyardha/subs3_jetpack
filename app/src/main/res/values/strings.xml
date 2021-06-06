@@ -13,5 +13,13 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="frag_mov">Movie</string>
     <string name="frag_tv">TV Show</string>
+    <string name="title_detail_mov">Detail Movie</string>
+    <string name="title_detail_tv">Detail TV Show</string>
 
+    <string name="tab_title_fav_movie">List Movie</string>
+    <string name="tab_title_fav_tv">List TV Show</string>
+    <string name="empty_state_title_no_conn">No Connection</string>
+    <string name="empty_state_title_no_favorite_item">No Favorite Item</string>
+    <string name="empty_state_desc_no_favorite_item_movie">No Description Favorite</string>
+    <string name="empty_state_desc_no_favorite_item_tvshow">No Item</string>
 </resources>

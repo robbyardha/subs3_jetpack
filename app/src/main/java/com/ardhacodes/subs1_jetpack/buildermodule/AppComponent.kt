@@ -1,7 +1,6 @@
 package com.ardhacodes.subs1_jetpack.buildermodule
 
 import android.app.Application
-import com.ardhacodes.subs1_jetpack.RootApp
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector

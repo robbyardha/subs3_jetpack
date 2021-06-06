@@ -4,8 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.ardhacodes.subs1_jetpack.data.MovTvRepository
 import com.ardhacodes.subs1_jetpack.data.MovieTvEntity
+import com.ardhacodes.subs1_jetpack.data.source.datalocal.MovieEntity
+import com.ardhacodes.subs1_jetpack.data.source.datalocal.TvEntity
+import javax.inject.Inject
 
-class DetailViewModel(val modelMovTvRepository: MovTvRepository) : ViewModel() {
+//class DetailViewModel(val modelMovTvRepository: MovTvRepository) : ViewModel() {
+class DetailViewModel @Inject constructor(private val movTvRepository: MovTvRepository) :
+    ViewModel() {
 //    private lateinit var mov_id: String
 //    private lateinit var tv_id: String
 //
@@ -46,13 +51,19 @@ class DetailViewModel(val modelMovTvRepository: MovTvRepository) : ViewModel() {
 //        return result
 //    }
 
-    fun getDetailMovieapis(movieId: Int): LiveData<MovieTvEntity>
-    {
-        return modelMovTvRepository.getMovieDetail(movieId)
+    fun getDetailMovieapis(movieId: Int): LiveData<MovieEntity> {
+        return movTvRepository.getMovieDetail(movieId)
     }
 
-    fun getDetailTvapis(tvShowId: Int): LiveData<MovieTvEntity>
-    {
-        return modelMovTvRepository.getTvDetail(tvShowId)
+    fun getDetailTvapis(tvShowId: Int): LiveData<TvEntity> {
+        return movTvRepository.getTvDetail(tvShowId)
+    }
+
+    fun setFavoriteMovie(movie: MovieEntity)  {
+        return movTvRepository.setFavoriteMovie(movie)
+    }
+
+    fun setFavoriteTv(tv: TvEntity){
+        return movTvRepository.setFavoriteTv(tv)
     }
 }

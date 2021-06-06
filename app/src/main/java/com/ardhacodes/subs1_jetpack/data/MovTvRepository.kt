@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@Suppress("DEPRECATION")
 class MovTvRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     val localDataSource: LocalDataSource
