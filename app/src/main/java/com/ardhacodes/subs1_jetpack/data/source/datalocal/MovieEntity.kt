@@ -10,10 +10,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "favorite_movies")
 @Parcelize
 data class MovieEntity(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Int? = null,
-
+    @PrimaryKey
     @NonNull
     @ColumnInfo(name = "idmovie")
     var idmovie : Int,
@@ -38,5 +35,5 @@ data class MovieEntity(
 
     @NonNull
     @ColumnInfo(name = "is_favorite")
-    var is_favorite: Boolean,
+    var is_favorite: Boolean = false,
 ):Parcelable

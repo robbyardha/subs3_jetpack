@@ -7,21 +7,23 @@ import com.ardhacodes.subs1_jetpack.data.source.datalocal.TvEntity
 import com.ardhacodes.subs1_jetpack.vo.Resource
 
 interface MovTvDataSource {
-    fun setFavoriteMovie(movie: MovieEntity)
-
     fun getPopularMovies(): LiveData<Resource<PagedList<MovieEntity>>>
 
-    fun getMovieDetail(movieId: Int): LiveData<MovieEntity>
+    fun getMovieDetail(movieId: Int): LiveData<Resource<MovieEntity>>
 
     fun getListFavoriteMovie() : LiveData<PagedList<MovieEntity>>
 
+    fun setFavoriteMovie(movie: MovieEntity, isFav:Boolean)
 
-    fun setFavoriteTv(tv: TvEntity)
 
-    fun getTv(): LiveData<Resource<PagedList<TvEntity>>>
+    fun getPopularTv(): LiveData<Resource<PagedList<TvEntity>>>
 
-    fun getTvDetail(tvShowId: Int): LiveData<TvEntity>
+    fun getTvDetail(tvId: Int): LiveData<Resource<TvEntity>>
 
     fun getListFavoriteTv() : LiveData<PagedList<TvEntity>>
+
+    fun setFavoriteTv(tv: TvEntity, isFav:Boolean)
+
+
 
 }

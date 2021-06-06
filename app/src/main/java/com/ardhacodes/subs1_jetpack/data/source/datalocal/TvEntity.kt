@@ -10,12 +10,9 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "favorite_tv")
 @Parcelize
 data class TvEntity(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Int? = null,
-
+    @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "idtv")
+    @ColumnInfo(name = "idmovie")
     var idtv : Int,
 
     @ColumnInfo(name = "title")
@@ -38,5 +35,5 @@ data class TvEntity(
 
     @NonNull
     @ColumnInfo(name = "is_favorite")
-    var is_favorite: Boolean,
+    var is_favorite: Boolean = false,
 ): Parcelable

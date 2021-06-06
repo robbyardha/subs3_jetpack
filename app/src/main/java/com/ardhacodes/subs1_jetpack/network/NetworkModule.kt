@@ -1,4 +1,4 @@
-package com.ardhacodes.subs1_jetpack.buildermodule
+package com.ardhacodes.subs1_jetpack.network
 
 import com.ardhacodes.subs1_jetpack.data.source.remote.api.ApiService
 import dagger.Module

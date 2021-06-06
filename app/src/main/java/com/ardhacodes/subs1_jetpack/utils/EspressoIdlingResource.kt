@@ -1,4 +1,5 @@
 package com.ardhacodes.subs1_jetpack.utils
+import androidx.test.espresso.IdlingResource
 import androidx.test.espresso.idling.CountingIdlingResource
 object EspressoIdlingResource {
     private const val RESOURCE = "GLOBAL"
@@ -10,5 +11,9 @@ object EspressoIdlingResource {
 
     fun CountDecrement(){
         espressoTestIdlingResource.decrement()
+    }
+
+    fun getEspressoIdlingResource(): IdlingResource {
+        return espressoTestIdlingResource
     }
 }

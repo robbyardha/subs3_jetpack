@@ -7,8 +7,17 @@ import javax.inject.Inject
 
 
 //class LocalDataSource private constructor(private val mMovieTvDao: MovieTvDao) {
-class LocalDataSource @Inject constructor(private val mMovieTvDao: MovieTvDao) {
-//    Movies
+class LocalDataSource(private val mMovieTvDao: MovieTvDao) {
+
+    companion object {
+        private var INSTANCE: LocalDataSource? = null
+
+        fun getInstance(movieTvDao: MovieTvDao): LocalDataSource {
+            return INSTANCE ?: LocalDataSource(movieTvDao)
+        }
+    }
+
+/*Movies*/
     fun getListMovies() : DataSource.Factory<Int, MovieEntity> {
         return mMovieTvDao.getListMovie()
     }
@@ -25,8 +34,12 @@ class LocalDataSource @Inject constructor(private val mMovieTvDao: MovieTvDao) {
         return mMovieTvDao.insertFavMovies(mov)
     }
 
-    fun setFavoriteMovies(mov : MovieEntity) {
-        mov.is_favorite = !mov.is_favorite
+    fun UpdateDataMovies(mov : MovieEntity, isTrue: Boolean) {
+        mov.is_favorite = isTrue
+        mMovieTvDao.updateFavMovie(mov)
+    }
+    fun setFavMovies(mov : MovieEntity, isTrue: Boolean) {
+        mov.is_favorite = isTrue
         mMovieTvDao.updateFavMovie(mov)
     }
 
@@ -47,8 +60,12 @@ class LocalDataSource @Inject constructor(private val mMovieTvDao: MovieTvDao) {
         return mMovieTvDao.insertFavTv(tv)
     }
 
-    fun setFavoriteTv(tv : TvEntity) {
-        tv.is_favorite = !tv.is_favorite
+    fun UpdateDataTv(tv : TvEntity, isTrue: Boolean) {
+        tv.is_favorite = isTrue
+        mMovieTvDao.updateFavTv(tv)
+    }
+    fun setFavTv(tv : TvEntity, isTrue: Boolean) {
+        tv.is_favorite = isTrue
         mMovieTvDao.updateFavTv(tv)
     }
 }

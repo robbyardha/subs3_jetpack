@@ -1,27 +1,26 @@
 package com.ardhacodes.subs1_jetpack.data.source.remote.api
 
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ApiConfig {
-    private const val baseUrl = "https://api.themoviedb.org/3/"
-
-    val clientHttp = OkHttpClient.Builder().apply {
-
-    }.build()
-
-    val retrofitBuild: Retrofit.Builder by lazy {
-        Retrofit.Builder().apply {
-            client(clientHttp)
-            baseUrl(baseUrl)
-            addConverterFactory(GsonConverterFactory.create())
+class ApiConfig {
+    companion object {
+        private val baseUrl = "https://api.themoviedb.org/3/"
+        fun getApiService(): ApiService {
+            val loggingInterceptor =
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            val client = OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .build()
+            val retrofit = Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
+            return retrofit.create(ApiService::class.java)
         }
-    }
-    val instanceApiService: ApiService by lazy {
-        retrofitBuild
-            .build()
-            .create(ApiService::class.java)
     }
 
 
