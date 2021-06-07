@@ -3,6 +3,8 @@ package com.ardhacodes.subs1_jetpack.data.source.datalocal
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.ardhacodes.subs1_jetpack.data.source.datalocal.room.MovieTvDao
+import com.ardhacodes.subs1_jetpack.utils.Helper
+import com.ardhacodes.subs1_jetpack.utils.Helper.MOVIE_ENTITIES
 import javax.inject.Inject
 
 
@@ -19,7 +21,7 @@ class LocalDataSource(private val mMovieTvDao: MovieTvDao) {
 
 /*Movies*/
     fun getListMovies() : DataSource.Factory<Int, MovieEntity> {
-        return mMovieTvDao.getListMovie()
+        return mMovieTvDao.getListMovie(Helper.getQuery(MOVIE_ENTITIES))
     }
 
     fun getListFavMovies() : DataSource.Factory<Int, MovieEntity>{
@@ -45,7 +47,7 @@ class LocalDataSource(private val mMovieTvDao: MovieTvDao) {
 
 //    Tv
     fun getListTvs() : DataSource.Factory<Int, TvEntity> {
-        return mMovieTvDao.getListTv()
+        return mMovieTvDao.getListTv(Helper.getQuery(Helper.TV_SHOW_ENTITIES))
     }
 
     fun getListFavTvs() : DataSource.Factory<Int, TvEntity>{

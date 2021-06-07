@@ -26,12 +26,12 @@ class MainActivity : AppCompatActivity() {
 
         val activityMainbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainbinding.root)
-
-        val sectionsPagerAdapter = SectionPagerAdapter(this, supportFragmentManager)
-        activityMainbinding.viewPager.adapter = sectionsPagerAdapter
-        activityMainbinding.tabs.setupWithViewPager(activityMainbinding.viewPager)
-
-        TitleActionBar()
+        setupBottomNav()
+//        val sectionsPagerAdapter = SectionPagerAdapter(this, supportFragmentManager)
+//        activityMainbinding.viewPager.adapter = sectionsPagerAdapter
+//        activityMainbinding.tabs.setupWithViewPager(activityMainbinding.viewPager)
+//
+//        TitleActionBar()
 
     }
 

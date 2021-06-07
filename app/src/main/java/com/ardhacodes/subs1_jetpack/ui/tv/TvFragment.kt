@@ -22,6 +22,7 @@ import com.ardhacodes.subs1_jetpack.databinding.FragmentMovieBinding
 import com.ardhacodes.subs1_jetpack.databinding.FragmentTvBinding
 import com.ardhacodes.subs1_jetpack.ui.CallbackMovTv
 import com.ardhacodes.subs1_jetpack.ui.detail.DetailMovieTvActivity
+import com.ardhacodes.subs1_jetpack.ui.detail.DetailViewModel.Companion.TV_SHOW
 import com.ardhacodes.subs1_jetpack.ui.main.MainActivity
 import com.ardhacodes.subs1_jetpack.ui.movie.MovieAdapter
 import com.ardhacodes.subs1_jetpack.ui.movie.MovieViewModel
@@ -120,7 +121,7 @@ class TvFragment : Fragment(), TvAdapter.OnItemClickCallback {
     override fun onItemClicked(id: String) {
         val intent = Intent(context, DetailMovieTvActivity::class.java)
         intent.putExtra(DetailMovieTvActivity.EXTRA_MOV, id)
-        intent.putExtra(DetailMovieTvActivity.EXTRA_CATEGORY, )
+        intent.putExtra(DetailMovieTvActivity.EXTRA_CATEGORY, TV_SHOW)
 
         context?.startActivity(intent)
     }

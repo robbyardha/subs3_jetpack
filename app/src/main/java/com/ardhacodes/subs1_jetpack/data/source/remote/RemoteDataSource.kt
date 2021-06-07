@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ardhacodes.subs1_jetpack.data.source.remote.api.ApiConfig
 import com.ardhacodes.subs1_jetpack.data.source.remote.api.ApiService
-import com.ardhacodes.subs1_jetpack.data.source.remote.response.MovieResponse
-import com.ardhacodes.subs1_jetpack.data.source.remote.response.MovieResponseResPage
-import com.ardhacodes.subs1_jetpack.data.source.remote.response.TvResponse
-import com.ardhacodes.subs1_jetpack.data.source.remote.response.TvResponseResPage
+import com.ardhacodes.subs1_jetpack.data.source.remote.response.*
 import com.ardhacodes.subs1_jetpack.data.source.remote.vo.ApiResponse
 import com.ardhacodes.subs1_jetpack.utils.EspressoIdlingResource
 import kotlinx.coroutines.CoroutineScope
@@ -38,19 +35,20 @@ class RemoteDataSource {
         val resMovies = MutableLiveData<ApiResponse<List<MovieResponse>>>()
         val clientHttp = ApiConfig.getApiService().getPopularMovie()
 
-        clientHttp.enqueue(object : Callback<MovieResponseResPage> {
+        clientHttp.enqueue(object : Callback<ForResponse<MovieResponse>> {
             override fun onResponse(
-                call: Call<MovieResponseResPage>,
-                response: Response<MovieResponseResPage>
+                call: Call<ForResponse<MovieResponse>>,
+                response: Response<ForResponse<MovieResponse>>
             ) {
-                resMovies.value = ApiResponse.success(response.body()?.results as List<MovieResponse>)
+                resMovies.value = ApiResponse.success(response.body()?.result as List<MovieResponse>)
                 EspressoIdlingResource.CountDecrement()
             }
 
-            override fun onFailure(call: Call<MovieResponseResPage>, t: Throwable) {
+            override fun onFailure(call: Call<ForResponse<MovieResponse>>, t: Throwable) {
                 Log.e("RemoteDataSource", "getMovies onFailure : ${t.message}")
                 EspressoIdlingResource.CountDecrement()
             }
+
 
         })
 
@@ -104,16 +102,16 @@ class RemoteDataSource {
         val resTv = MutableLiveData<ApiResponse<List<TvResponse>>>()
         val clientHttp = ApiConfig.getApiService().getTvPopular()
 
-        clientHttp.enqueue(object : Callback<TvResponseResPage> {
+        clientHttp.enqueue(object : Callback<ForResponse<TvResponse>> {
             override fun onResponse(
-                call: Call<TvResponseResPage>,
-                response: Response<TvResponseResPage>
+                call: Call<ForResponse<TvResponse>>,
+                response: Response<ForResponse<TvResponse>>
             ) {
-                resTv.value = ApiResponse.success(response.body()?.results as List<TvResponse>)
+                resTv.value = ApiResponse.success(response.body()?.result as List<TvResponse>)
                 EspressoIdlingResource.CountDecrement()
             }
 
-            override fun onFailure(call: Call<TvResponseResPage>, t: Throwable) {
+            override fun onFailure(call: Call<ForResponse<TvResponse>>, t: Throwable) {
                 Log.e("RemoteDataSource", "getMovies onFailure : ${t.message}")
                 EspressoIdlingResource.CountDecrement()
             }
@@ -137,7 +135,7 @@ class RemoteDataSource {
                 EspressoIdlingResource.CountDecrement()
             }
         })
-        return resDetailMovie
+        return resDetailTv
     }
 
 }

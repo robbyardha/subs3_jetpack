@@ -79,7 +79,7 @@ class MovieFavFragment : DaggerFragment(), CallbackMov {
     private fun setupRecyclerView() {
         rv_favmovie.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = MovieAdapter(this@MovieFavFragment)
+            adapter = MovieAdapter(this)
         }
     }
 

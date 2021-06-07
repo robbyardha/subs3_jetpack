@@ -10,11 +10,11 @@ import com.ardhacodes.subs1_jetpack.data.source.datalocal.TvEntity
 @Dao
 interface MovieTvDao {
     //    Module Movie Query
-//    @RawQuery(observedEntities = [MovieEntity::class])
-//    fun getListMovie(query: SimpleSQLiteQuery): DataSource.Factory<Int, MovieEntity>
+    @RawQuery(observedEntities = [MovieEntity::class])
+    fun getListMovie(query: SimpleSQLiteQuery): DataSource.Factory<Int, MovieEntity>
 
-    @Query("SELECT * FROM favorite_movies")
-    public fun getListMovie(): DataSource.Factory<Int, MovieEntity>
+//    @Query("SELECT * FROM favorite_movies")
+//    public fun getListMovie(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM favorite_movies WHERE is_favorite = 1")
     public fun getListMovieFavorite(): DataSource.Factory<Int, MovieEntity>
@@ -31,11 +31,11 @@ interface MovieTvDao {
 
 
     //    Module Tv Query
-//    @RawQuery(observedEntities = [TvEntity::class])
-//    fun getListTv(query: SimpleSQLiteQuery): DataSource.Factory<Int, TvEntity>
+    @RawQuery(observedEntities = [TvEntity::class])
+    fun getListTv(query: SimpleSQLiteQuery): DataSource.Factory<Int, TvEntity>
 
-    @Query("SELECT * FROM favorite_tv")
-    public fun getListTv(): DataSource.Factory<Int, TvEntity>
+//    @Query("SELECT * FROM favorite_tv")
+//    public fun getListTv(): DataSource.Factory<Int, TvEntity>
 
     @Query("SELECT * FROM favorite_tv WHERE is_favorite = 1")
     public fun getListTvFavorite(): DataSource.Factory<Int, TvEntity>

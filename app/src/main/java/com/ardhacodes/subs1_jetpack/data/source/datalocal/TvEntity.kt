@@ -12,7 +12,7 @@ import kotlinx.android.parcel.Parcelize
 data class TvEntity(
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "idmovie")
+    @ColumnInfo(name = "idtv")
     var idtv : Int,
 
     @ColumnInfo(name = "title")
