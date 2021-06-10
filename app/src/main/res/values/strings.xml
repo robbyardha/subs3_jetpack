@@ -13,18 +13,11 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="frag_mov">Movie</string>
     <string name="frag_tv">TV Show</string>
-    <string name="title_detail_mov">Detail Movie</string>
-    <string name="title_detail_tv">Detail TV Show</string>
+    <string name="nofavoriteisempty">Maaf Kamu tidak memiliki item favorite</string>
+    <string name="noconn">Maaf tidak ada koneksi</string>
+    <string name="noitemfav">Maaf tidak ada item favorite</string>
+    <string name="botnavmov">Movies</string>
+    <string name="botnavtv">Tv Show</string>
+    <string name="botnavfav">Favorite</string>
 
-    <string name="tab_title_fav_movie">List Movie</string>
-    <string name="tab_title_fav_tv">List TV Show</string>
-    <string name="empty_state_title_no_conn">No Connection</string>
-    <string name="empty_state_title_no_favorite_item">No Favorite Item</string>
-    <string name="empty_state_desc_no_favorite_item_movie">No Description Favorite</string>
-    <string name="empty_state_desc_no_favorite_item_tvshow">No Item</string>
-    <string name="bottom_nav_title_movie">Movie</string>
-    <string name="bottom_nav_title_tvshow">Tv Show</string>
-    <string name="bottom_nav_title_favorite">Favorite</string>
-    <string name="toolbar_title_movie">Movie</string>
-    <string name="toolbar_title_tvshow">Tv Show</string>
 </resources>

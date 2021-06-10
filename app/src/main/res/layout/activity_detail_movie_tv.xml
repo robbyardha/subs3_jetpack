@@ -9,6 +9,7 @@
     android:descendantFocusability="blocksDescendants"
     android:padding="14dp">
 
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="match_parent"
@@ -19,8 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-
         <ImageView
             android:id="@+id/iv_poster"
             android:layout_width="match_parent"
@@ -28,16 +27,6 @@
             android:scaleType="centerCrop"
             android:src="@color/black"></ImageView>
 
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:backgroundTint="@color/design_default_color_primary"
-            android:clickable="true"
-            app:maxImageSize="28dp"
-            app:srcCompat="@drawable/ic_love_white"
-            android:focusable="true" />
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -126,6 +115,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

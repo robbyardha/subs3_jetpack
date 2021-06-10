@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ardhacodes.subs1_jetpack.R
-import com.ardhacodes.subs1_jetpack.data.source.datalocal.TvEntity
+import com.ardhacodes.subs1_jetpack.data.source.datalocal.entity.TvEntity
 import com.ardhacodes.subs1_jetpack.ui.detail.DetailMovieTvActivity
 import com.ardhacodes.subs1_jetpack.ui.favorite.FavoriteViewModel
 import com.ardhacodes.subs1_jetpack.ui.tv.TvAdapter

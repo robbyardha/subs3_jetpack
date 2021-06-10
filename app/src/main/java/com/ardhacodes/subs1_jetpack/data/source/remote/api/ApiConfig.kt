@@ -9,8 +9,7 @@ class ApiConfig {
     companion object {
         private val baseUrl = "https://api.themoviedb.org/3/"
         fun getApiService(): ApiService {
-            val loggingInterceptor =
-                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .build()
@@ -22,6 +21,4 @@ class ApiConfig {
             return retrofit.create(ApiService::class.java)
         }
     }
-
-
 }

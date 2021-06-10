@@ -1,7 +1,7 @@
 package com.ardhacodes.subs1_jetpack.ui.tv
 
-import com.ardhacodes.subs1_jetpack.data.source.datalocal.TvEntity
+import com.ardhacodes.subs1_jetpack.data.MovieTvEntity
 
 interface TvFragmentCallback {
-    fun onItemClicked(tvEntity: TvEntity)
+    fun onShareClick(mov: MovieTvEntity)
 }

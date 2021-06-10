@@ -3,15 +3,15 @@
 
     <item
         android:id="@+id/navigation_movie"
-        android:title="@string/bottom_nav_title_movie" />
+        android:title="@string/botnavmov" />
 
 <!--        android:icon="@drawable/ic_movie"-->
     <item
         android:id="@+id/navigation_tvshow"
-        android:title="@string/bottom_nav_title_tvshow" />
+        android:title="@string/botnavtv" />
 
     <item
         android:id="@+id/navigation_favorite"
-        android:title="@string/bottom_nav_title_favorite" />
+        android:title="@string/botnavfav" />
 
 </menu>

@@ -1,29 +1,14 @@
 package com.ardhacodes.subs1_jetpack.data
 
 import androidx.lifecycle.LiveData
-import androidx.paging.PagedList
-import com.ardhacodes.subs1_jetpack.data.source.datalocal.MovieEntity
-import com.ardhacodes.subs1_jetpack.data.source.datalocal.TvEntity
-import com.ardhacodes.subs1_jetpack.vo.Resource
+import com.ardhacodes.subs1_jetpack.data.MovieTvEntity
 
 interface MovTvDataSource {
-    fun getPopularMovies(): LiveData<Resource<PagedList<MovieEntity>>>
+    fun getPopularMovies(): LiveData<List<MovieTvEntity>>
 
-    fun getMovieDetail(movieId: Int): LiveData<Resource<MovieEntity>>
+    fun getMovieDetail(movieId: Int): LiveData<MovieTvEntity>
 
-    fun getListFavoriteMovie() : LiveData<PagedList<MovieEntity>>
+    fun getTv(): LiveData<List<MovieTvEntity>>
 
-    fun setFavoriteMovie(movie: MovieEntity, isFav:Boolean)
-
-
-    fun getPopularTv(): LiveData<Resource<PagedList<TvEntity>>>
-
-    fun getTvDetail(tvId: Int): LiveData<Resource<TvEntity>>
-
-    fun getListFavoriteTv() : LiveData<PagedList<TvEntity>>
-
-    fun setFavoriteTv(tv: TvEntity, isFav:Boolean)
-
-
-
+    fun getTvDetail(tvShowId: Int): LiveData<MovieTvEntity>
 }

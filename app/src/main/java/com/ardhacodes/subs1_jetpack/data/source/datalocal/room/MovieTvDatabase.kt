@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.ardhacodes.subs1_jetpack.data.source.datalocal.MovieEntity
-import com.ardhacodes.subs1_jetpack.data.source.datalocal.TvEntity
+import com.ardhacodes.subs1_jetpack.data.source.datalocal.entity.MovieEntity
+import com.ardhacodes.subs1_jetpack.data.source.datalocal.entity.TvEntity
 
 @Database(entities = [MovieEntity::class, TvEntity::class], version = 1, exportSchema = false)
 abstract class MovieTvDatabase : RoomDatabase() {

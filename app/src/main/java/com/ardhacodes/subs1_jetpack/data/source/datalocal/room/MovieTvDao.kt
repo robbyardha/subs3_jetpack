@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
 import androidx.sqlite.db.SimpleSQLiteQuery
-import com.ardhacodes.subs1_jetpack.data.source.datalocal.MovieEntity
-import com.ardhacodes.subs1_jetpack.data.source.datalocal.TvEntity
+import com.ardhacodes.subs1_jetpack.data.source.datalocal.entity.MovieEntity
+import com.ardhacodes.subs1_jetpack.data.source.datalocal.entity.TvEntity
 
 @Dao
 interface MovieTvDao {

@@ -4,20 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.ardhacodes.subs1_jetpack.data.MovTvRepository
 import com.ardhacodes.subs1_jetpack.data.MovieTvEntity
-import com.ardhacodes.subs1_jetpack.data.source.datalocal.MovieEntity
-import com.ardhacodes.subs1_jetpack.data.source.datalocal.TvEntity
-import com.ardhacodes.subs1_jetpack.vo.Resource
-import javax.inject.Inject
 
-//class DetailViewModel(val modelMovTvRepository: MovTvRepository) : ViewModel() {
-class DetailViewModel (private val movTvRepository: MovTvRepository) : ViewModel() {
-    companion object {
-        const val MOVIE = "movie"
-        const val TV_SHOW = "tvShow"
-    }
-    private lateinit var detailtv: LiveData<Resource<TvEntity>>
-    private lateinit var detailmov: LiveData<Resource<MovieEntity>>
-
+class DetailViewModel(val modelMovTvRepository: MovTvRepository) : ViewModel() {
 //    private lateinit var mov_id: String
 //    private lateinit var tv_id: String
 //
@@ -58,50 +46,13 @@ class DetailViewModel (private val movTvRepository: MovTvRepository) : ViewModel
 //        return result
 //    }
 
-    fun setFilm(id: String, category: String) {
-        when (category) {
-            TV_SHOW -> {
-                detailtv = movTvRepository.getTvDetail(id.toInt())
-            }
-
-            MOVIE -> {
-                detailmov = movTvRepository.getMovieDetail(id.toInt())
-            }
-        }
+    fun getDetailMovieapis(movieId: Int): LiveData<MovieTvEntity>
+    {
+        return modelMovTvRepository.getMovieDetail(movieId)
     }
 
-    fun setFavoriteMovie() {
-        val resource = detailmov.value
-        if (resource?.data != null) {
-            val newState = resource.data!!.is_favorite
-            movTvRepository.setFavoriteMovie(resource.data!!, newState)
-        }
+    fun getDetailTvapis(tvShowId: Int): LiveData<MovieTvEntity>
+    {
+        return modelMovTvRepository.getTvDetail(tvShowId)
     }
-
-    fun setFavoriteTvShow() {
-        val resource = detailtv.value
-        if (resource?.data != null) {
-            val newState = resource.data!!.is_favorite
-            movTvRepository.setFavoriteTv(resource.data!!, newState)
-        }
-    }
-
-    fun getDetailTvApis() = detailtv
-    fun getDetailMovieApis() = detailmov
-
-//    fun getDetailMovieapis(movieId: Int): LiveData<MovieEntity> {
-//        return movTvRepository.getMovieDetail(movieId)
-//    }
-//
-//    fun getDetailTvapis(tvShowId: Int): LiveData<TvEntity> {
-//        return movTvRepository.getTvDetail(tvShowId)
-//    }
-//
-//    fun setFavoriteMovie(movie: MovieEntity)  {
-//        return movTvRepository.setFavoriteMovie(movie)
-//    }
-//
-//    fun setFavoriteTv(tv: TvEntity){
-//        return movTvRepository.setFavoriteTv(tv)
-//    }
 }
