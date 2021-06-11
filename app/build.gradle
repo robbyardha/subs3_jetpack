@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -80,6 +81,10 @@ dependencies {
     testImplementation "org.mockito:mockito-inline:3.6.0"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
+
+    implementation "androidx.paging:paging-runtime-ktx:2.1.1"
+    implementation "androidx.room:room-runtime:2.2.6"
+    kapt "androidx.room:room-compiler:2.2.3"
 
 
 }
