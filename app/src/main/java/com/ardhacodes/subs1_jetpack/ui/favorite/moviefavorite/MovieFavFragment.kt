@@ -2,24 +2,27 @@ package com.ardhacodes.subs1_jetpack.ui.favorite.moviefavorite
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ardhacodes.subs1_jetpack.R
 import com.ardhacodes.subs1_jetpack.data.source.datalocal.entity.MovieEntity
 import com.ardhacodes.subs1_jetpack.databinding.FragmentMovieFavBinding
 import com.ardhacodes.subs1_jetpack.ui.detail.DetailMovieTvActivity
+import com.ardhacodes.subs1_jetpack.ui.detail.DetailViewModel.Companion.MOVIE_VIEWMDL
 import com.ardhacodes.subs1_jetpack.ui.movie.CallbackMov
 import com.ardhacodes.subs1_jetpack.ui.movie.MovieAdapter
 import com.ardhacodes.subs1_jetpack.viewmodel.ViewModelFactory
-import dagger.android.support.DaggerFragment
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_movie_fav.*
 import kotlinx.android.synthetic.main.message_empty.*
-import javax.inject.Inject
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //private const val ARG_PARAM1 = "param1"
@@ -51,66 +54,51 @@ class MovieFavFragment : Fragment(), MovieFavAdapter.OnItemClickCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
+//        itemTouchHelper.attachToRecyclerView(binding?.rvFavmovie)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        setupRecyclerView()
+        if (activity != null) {
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            viewModel = ViewModelProvider(this, factory)[MovieFavViewModel::class.java]
 
-        parentFragment?.let {
-            viewModel = ViewModelProvider(it, factory)[FavoriteViewModel::class.java]
-        }
-        observeFavoriteMovies()
+            adapter = MovieFavAdapter()
+            adapter.setOnItemClickCallback(this)
 
-    }
-
-    private fun observeFavoriteMovies() {
-        viewModel.getListFavoriteMovie().observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                rv_favmovie.adapter?.let { adapter ->
-                    when (adapter) {
-                        is MovieAdapter -> {
-                            if (it.isNullOrEmpty()) {
-                                rv_favmovie.visibility = View.GONE
-                                enableEmptyStateEmptyFavoriteMovie()
-                            } else {
-                                rv_favmovie.visibility = View.VISIBLE
-                                adapter.submitList(it)
-                                adapter.notifyDataSetChanged()
-                            }
-                        }
-                    }
+            viewModel.getFavMov().observe(viewLifecycleOwner, { favMovies ->
+                if (favMovies != null) {
+                    adapter.submitList(favMovies)
                 }
-            }
-        })
-    }
+            })
 
-    private fun setupRecyclerView() {
-        rv_favmovie.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = MovieAdapter(this)
+            val marginVertical = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics)
+
+            with(binding?.rvFavmovie) {
+                this?.addItemDecoration(MovieFavDecoration(marginVertical.toInt()))
+                this?.layoutManager = LinearLayoutManager(context)
+                this?.setHasFixedSize(true)
+                this?.adapter = adapter
+            }
         }
     }
 
-    private fun enableEmptyStateEmptyFavoriteMovie() {
-        img_empty_state.setImageResource(R.drawable.ic_error)
-        img_empty_state.contentDescription =
-            resources.getString(R.string.empty_state_desc_no_favorite_item_movie)
-        title_empty_state.text = resources.getString(R.string.empty_state_title_no_favorite_item)
-        desc_empty_state.text =
-            resources.getString(R.string.empty_state_desc_no_favorite_item_movie)
-        favorite_movie_empty_state.visibility = View.VISIBLE
+
+
+//    private fun setupRecyclerView() {
+//        rv_favmovie.apply {
+//            layoutManager = LinearLayoutManager(context)
+//            adapter = MovieAdapter(this)
+//        }
+//    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        fragmentFavMovBinding = null
     }
 
+    override fun onItemClicked(id: Int) {
+        val intent = Intent(context, DetailMovieTvActivity::class.java)
+        intent.putExtra(DetailMovieTvActivity.EXTRA_MOV, id)
+        intent.putExtra(DetailMovieTvActivity.EXTRA_CATEGORY, MOVIE_VIEWMDL)
 
-    override fun onItemClicked(movieEntity: MovieEntity) {
-        startActivity(
-            Intent(
-                context,
-                DetailMovieTvActivity::class.java
-            )
-                .putExtra(DetailMovieTvActivity.EXTRA_MOV, movieEntity.idmovie)
-                .putExtra(DetailMovieTvActivity.EXTRA_CATEGORY, "TYPE")
-        )
+        context?.startActivity(intent)
     }
 }

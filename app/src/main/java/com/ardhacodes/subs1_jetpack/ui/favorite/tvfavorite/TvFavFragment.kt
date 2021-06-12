@@ -2,6 +2,7 @@ package com.ardhacodes.subs1_jetpack.ui.favorite.tvfavorite
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +12,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ardhacodes.subs1_jetpack.R
 import com.ardhacodes.subs1_jetpack.data.source.datalocal.entity.TvEntity
+import com.ardhacodes.subs1_jetpack.databinding.FragmentTvFavBinding
 import com.ardhacodes.subs1_jetpack.ui.detail.DetailMovieTvActivity
+import com.ardhacodes.subs1_jetpack.ui.detail.DetailViewModel
+import com.ardhacodes.subs1_jetpack.ui.detail.DetailViewModel.Companion.TV_VIEWMDL
 import com.ardhacodes.subs1_jetpack.ui.tv.TvAdapter
 import com.ardhacodes.subs1_jetpack.ui.tv.TvFragmentCallback
 import com.ardhacodes.subs1_jetpack.viewmodel.ViewModelFactory
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_tv_fav.*
 import kotlinx.android.synthetic.main.message_empty.*
-import javax.inject.Inject
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //private const val ARG_PARAM1 = "param1"
@@ -29,11 +31,12 @@ import javax.inject.Inject
  * Use the [TvFavFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TvFavFragment : DaggerFragment(), TvFragmentCallback {
+class TvFavFragment : Fragment(), TvFavAdapter.OnItemClickCallback {
 
-    private lateinit var viewModel: FavoriteViewModel
-
-    @Inject
+    private var fragmentTvFavBinding: FragmentTvFavBinding? = null
+    private val binding get() = fragmentTvFavBinding
+    private lateinit var adapter: TvFavAdapter
+    private lateinit var viewModel: TvFavViewModel
     lateinit var factory: ViewModelFactory
 
     override fun onCreateView(
@@ -41,67 +44,75 @@ class TvFavFragment : DaggerFragment(), TvFragmentCallback {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tv_fav, container, false)
+        fragmentTvFavBinding = FragmentTvFavBinding.inflate(layoutInflater, container, false)
+        return binding?.root
+//        return inflater.inflate(R.layout.fragment_tv_fav, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        setupRecyclerView()
-
-        parentFragment?.let {
-            viewModel = ViewModelProvider(it, factory)[FavoriteViewModel::class.java]
-        }
-        observeFavoriteTvShow()
-
-    }
-
-    private fun observeFavoriteTvShow() {
-        viewModel.getListFavoriteTvShow().observe(viewLifecycleOwner, Observer {
-            if (it != null){
-                rv_favtv.adapter?.let {adapter ->
-                    when (adapter) {
-                        is TvAdapter -> {
-                            if (it.isNullOrEmpty()){
-                                rv_favtv.visibility = View.GONE
-                                enableEmptyStateEmptyFavoriteTvShow()
-                            } else {
-                                rv_favtv.visibility = View.VISIBLE
-                                adapter.submitList(it)
-                                adapter.notifyDataSetChanged()
-                            }
-                        }
-                    }
-                }
+    override fun onResume() {
+        super.onResume()
+        viewModel.getFavTv().observe(viewLifecycleOwner, { favTvShow ->
+            if (favTvShow != null) {
+                adapter.submitList(favTvShow)
             }
         })
     }
 
-    private fun setupRecyclerView() {
-        rv_favtv.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = TvAdapter(this@TvFavFragment)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (activity != null) {
+            val factory = ViewModelFactory.getInstance(requireContext())
+            viewModel = ViewModelProvider(this, factory)[TvFavViewModel::class.java]
+
+            adapter = TvFavAdapter()
+            adapter.setOnItemClickCallback(this)
+
+            viewModel.getFavTv().observe(viewLifecycleOwner, { favTvShow ->
+                if (favTvShow != null) {
+                    adapter.submitList(favTvShow)
+                }
+            })
+
+            val marginVertical = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                16f,
+                resources.displayMetrics
+            )
+
+            with(binding?.rvFavtv) {
+                this?.addItemDecoration(TvFavDecoration(marginVertical.toInt()))
+                this?.layoutManager = LinearLayoutManager(context)
+                this?.setHasFixedSize(true)
+                this?.adapter = adapter
+            }
         }
     }
 
-    private fun enableEmptyStateEmptyFavoriteTvShow() {
-        img_empty_state.setImageResource(R.drawable.ic_error)
-        img_empty_state.contentDescription =
-            resources.getString(R.string.empty_state_desc_no_favorite_item_tvshow)
-        title_empty_state.text = resources.getString(R.string.empty_state_title_no_favorite_item)
-        desc_empty_state.text =
-            resources.getString(R.string.empty_state_desc_no_favorite_item_tvshow)
-        favorite_tv_empty_state.visibility = View.VISIBLE
-    }
+//    override fun onActivityCreated(savedInstanceState: Bundle?) {
+//        super.onActivityCreated(savedInstanceState)
+//        setupRecyclerView()
+//
+//        parentFragment?.let {
+//            viewModel = ViewModelProvider(it, factory)[FavoriteViewModel::class.java]
+//        }
+//        observeFavoriteTvShow()
+//
+//    }
 
-    override fun onItemClicked(tvEntity: TvEntity) {
-        startActivity(
-            Intent(
-                context,
-                DetailMovieTvActivity::class.java
-            )
-                .putExtra(DetailMovieTvActivity.EXTRA_MOV, tvEntity.idtv)
-                .putExtra(DetailMovieTvActivity.EXTRA_CATEGORY, "TYPE_TVSHOW")
-        )
+    //
+//    private fun setupRecyclerView() {
+//        rv_favtv.apply {
+//            layoutManager = LinearLayoutManager(context)
+//            adapter = TvAdapter(this@TvFavFragment)
+//        }
+//    }
+//
+    override fun onItemClicked(id: Int) {
+        val intent = Intent(context, DetailMovieTvActivity::class.java)
+        intent.putExtra(DetailMovieTvActivity.EXTRA_MOV, id)
+        intent.putExtra(DetailMovieTvActivity.EXTRA_CATEGORY, TV_VIEWMDL)
+
+        context?.startActivity(intent)
     }
 
 }
