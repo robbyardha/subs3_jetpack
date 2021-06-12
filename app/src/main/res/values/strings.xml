@@ -19,5 +19,7 @@
     <string name="botnavmov">Movies</string>
     <string name="botnavtv">Tv Show</string>
     <string name="botnavfav">Favorite</string>
+    <string name="movie">Movie</string>
+    <string name="tv_show">Tv Show</string>
 
 </resources>

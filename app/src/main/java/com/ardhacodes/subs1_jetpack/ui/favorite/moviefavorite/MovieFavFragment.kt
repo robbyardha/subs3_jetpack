@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ardhacodes.subs1_jetpack.R
 import com.ardhacodes.subs1_jetpack.data.source.datalocal.entity.MovieEntity
+import com.ardhacodes.subs1_jetpack.databinding.FragmentMovieFavBinding
 import com.ardhacodes.subs1_jetpack.ui.detail.DetailMovieTvActivity
-import com.ardhacodes.subs1_jetpack.ui.favorite.FavoriteViewModel
 import com.ardhacodes.subs1_jetpack.ui.movie.CallbackMov
 import com.ardhacodes.subs1_jetpack.ui.movie.MovieAdapter
 import com.ardhacodes.subs1_jetpack.viewmodel.ViewModelFactory
@@ -30,10 +30,13 @@ import javax.inject.Inject
  * Use the [MovieFavFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MovieFavFragment : DaggerFragment(), CallbackMov {
-    private lateinit var viewModel: FavoriteViewModel
+class MovieFavFragment : Fragment(), MovieFavAdapter.OnItemClickCallback {
+    private var fragmentFavMovBinding : FragmentMovieFavBinding? = null
+    private val binding get() = fragmentFavMovBinding
 
-    @Inject
+    private lateinit var viewModel: MovieFavViewModel
+    private lateinit var adapter: MovieFavAdapter
+
     lateinit var factory: ViewModelFactory
 
     override fun onCreateView(
@@ -41,7 +44,13 @@ class MovieFavFragment : DaggerFragment(), CallbackMov {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie_fav, container, false)
+        fragmentFavMovBinding = FragmentMovieFavBinding.inflate(layoutInflater, container, false)
+        return binding?.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -1,5 +1,6 @@
 package com.ardhacodes.subs1_jetpack.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ardhacodes.subs1_jetpack.data.MovTvRepository
@@ -14,9 +15,9 @@ class ViewModelFactory private constructor(private val mCatalogRepository: MovTv
         @Volatile
         private var instance: ViewModelFactory? = null
 
-        fun getInstance(): ViewModelFactory =
+        fun getInstance(context: Context): ViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.provideCatalogRepository())
+                instance ?: ViewModelFactory(Injection.provideMovTvRepository(context))
             }
     }
 

@@ -27,6 +27,13 @@
             android:scaleType="centerCrop"
             android:src="@color/black"></ImageView>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_love_white"
+            android:backgroundTint="@color/design_default_color_primary"/>
+
     </androidx.cardview.widget.CardView>
 
     <TextView

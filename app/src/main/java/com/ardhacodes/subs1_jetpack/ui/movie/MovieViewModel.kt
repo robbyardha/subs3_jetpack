@@ -7,7 +7,10 @@ import com.ardhacodes.subs1_jetpack.data.MovieTvEntity
 import com.ardhacodes.subs1_jetpack.utils.MoviesTvDataDummy
 
 class MovieViewModel(val movieRepository: MovTvRepository) : ViewModel(){
+
+
     fun getdDataMovie () :List<MovieTvEntity> = MoviesTvDataDummy.DataMovies()
 
-    fun getDataMovieApi () : LiveData<List<MovieTvEntity>> = movieRepository.getPopularMovies()
+//    fun getDataMovieApi () : LiveData<List<MovieTvEntity>> = movieRepository.getPopularMovies()
+    fun getDataMovieApi (sort : String)=movieRepository.getPopularMovies(sort)
 }

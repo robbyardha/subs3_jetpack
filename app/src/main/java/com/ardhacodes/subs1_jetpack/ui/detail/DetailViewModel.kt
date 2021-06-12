@@ -4,55 +4,48 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.ardhacodes.subs1_jetpack.data.MovTvRepository
 import com.ardhacodes.subs1_jetpack.data.MovieTvEntity
+import com.ardhacodes.subs1_jetpack.data.source.datalocal.entity.MovieEntity
+import com.ardhacodes.subs1_jetpack.data.source.datalocal.entity.TvEntity
+import com.ardhacodes.subs1_jetpack.vo.Resource
 
 class DetailViewModel(val modelMovTvRepository: MovTvRepository) : ViewModel() {
-//    private lateinit var mov_id: String
-//    private lateinit var tv_id: String
-//
-//    fun setMovieById(movieId: String) {
-//        this.mov_id = movieId
-//    }
-//
-//    fun setTvShowById(tvShowId: String) {
-//        this.tv_id = tvShowId
-//    }
-
-//    private fun getListMovie(): ArrayList<MovieTvEntity> = MoviesTvDataDummy.DataMovies() as ArrayList<MovieTvEntity>
-//    private fun getListTvShow(): ArrayList<MovieTvEntity> = MoviesTvDataDummy.DataTvShow() as ArrayList<MovieTvEntity>
-
-
-//    fun getMovieById(): MovieTvEntity? {
-//        var result: MovieTvEntity? = null
-//        val listMovie = getListMovie()
-//        for (movie in listMovie){
-//            if(movie.title == mov_id){
-//                result = movie
-//                break
-//            }
-//        }
-//        return result
-//    }
-//
-//
-//    fun getTvShowById(): MovieTvEntity? {
-//        var result: MovieTvEntity? = null
-//        val listTvShow = getListTvShow()
-//        for(tvshow in listTvShow){
-//            if(tvshow.title == tv_id){
-//                result = tvshow
-//                break
-//            }
-//        }
-//        return result
-//    }
-
-    fun getDetailMovieapis(movieId: Int): LiveData<MovieTvEntity>
-    {
-        return modelMovTvRepository.getMovieDetail(movieId)
+    companion object {
+        const val MOVIE_VIEWMDL = "movie"
+        const val TV_VIEWMDL = "tv"
     }
 
-    fun getDetailTvapis(tvShowId: Int): LiveData<MovieTvEntity>
-    {
-        return modelMovTvRepository.getTvDetail(tvShowId)
+    private lateinit var detailtv: LiveData<Resource<TvEntity>>
+    private lateinit var detailmov: LiveData<Resource<MovieEntity>>
+
+    public fun setMovTvCategory(id: Int, category: String) {
+        when (category) {
+            TV_VIEWMDL -> {
+                detailtv = modelMovTvRepository.getTvDetail(id)
+            }
+
+            MOVIE_VIEWMDL -> {
+                detailmov = modelMovTvRepository.getMovieDetail(id)
+            }
+        }
     }
+
+    public fun setterFavMov() {
+        val resource = detailmov.value
+        if (resource?.data != null) {
+            val newState = !resource.data?.is_favorite!!
+            modelMovTvRepository.setFavMovie(resource.data!!, newState)
+        }
+    }
+
+    public fun setterFavTv() {
+        val resource = detailtv.value
+        if (resource?.data != null) {
+            val newState = !resource.data?.is_favorite!!
+            modelMovTvRepository.setFavTv(resource.data!!, newState)
+        }
+    }
+
+    public fun getDetailMovieapis() = detailmov
+
+    public fun getDetailTvapis() = detailtv
 }

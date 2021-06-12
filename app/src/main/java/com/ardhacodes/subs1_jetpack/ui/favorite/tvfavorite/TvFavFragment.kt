@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ardhacodes.subs1_jetpack.R
 import com.ardhacodes.subs1_jetpack.data.source.datalocal.entity.TvEntity
 import com.ardhacodes.subs1_jetpack.ui.detail.DetailMovieTvActivity
-import com.ardhacodes.subs1_jetpack.ui.favorite.FavoriteViewModel
 import com.ardhacodes.subs1_jetpack.ui.tv.TvAdapter
 import com.ardhacodes.subs1_jetpack.ui.tv.TvFragmentCallback
 import com.ardhacodes.subs1_jetpack.viewmodel.ViewModelFactory
