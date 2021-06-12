@@ -28,10 +28,10 @@
         android:id="@+id/tvFragment"
         android:name="com.ardhacodes.subs1_jetpack.ui.tv.TvFragment"
         android:label="fragment_tv_show"
-        tools:layout="@layout/fragment_tv_show" />
+        tools:layout="@layout/fragment_tv" />
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.riyaldi.moviecatalogue.ui.favorite.FavoriteFragment"
+        android:name="com.ardhacodes.subs1_jetpack.ui.favorite.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
 </navigation>

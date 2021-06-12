@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.ardhacodes.subs1_jetpack.R
+import com.ardhacodes.subs1_jetpack.ui.favorite.FavoriteFragment
 import com.ardhacodes.subs1_jetpack.ui.movie.MovieFragment
 import com.ardhacodes.subs1_jetpack.ui.tv.TvFragment
 

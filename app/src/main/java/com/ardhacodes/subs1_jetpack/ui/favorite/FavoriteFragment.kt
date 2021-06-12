@@ -50,8 +50,8 @@ class FavoriteFragment : Fragment() {
 
         if (activity != null) {
             (activity as MainActivity).setActionBarTitle("Favorite")
-
             setViewPager()
+
         }
     }
 

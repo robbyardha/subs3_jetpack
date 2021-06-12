@@ -21,5 +21,6 @@
     <string name="botnavfav">Favorite</string>
     <string name="movie">Movie</string>
     <string name="tv_show">Tv Show</string>
+    <string name="frag_fav">Favorite</string>
 
 </resources>
