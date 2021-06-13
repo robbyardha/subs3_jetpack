@@ -14,7 +14,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_main"
-        class ="com.ardhacodes.subs1_jetpack.ui.movie.MovieFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
@@ -24,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/main_navigation" />
 <!--android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--    class ="com.ardhacodes.subs1_jetpack.ui.movie.MovieFragment"-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_main"

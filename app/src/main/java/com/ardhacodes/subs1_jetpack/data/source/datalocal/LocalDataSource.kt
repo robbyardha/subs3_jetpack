@@ -17,7 +17,7 @@ class LocalDataSource(private val modMovieTvDao: MovieTvDao) {
     companion object {
         private var INSTANCE: LocalDataSource? = null
 
-        fun getInstance(movieTvDao: MovieTvDao): LocalDataSource = INSTANCE ?: getInstance(movieTvDao)
+        fun getInstance(movieTvDao: MovieTvDao): LocalDataSource = INSTANCE ?: LocalDataSource(movieTvDao)
     }
 
 /*Movies*/
