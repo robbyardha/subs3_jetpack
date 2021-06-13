@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/movieFragment"
         android:name="com.ardhacodes.subs1_jetpack.ui.movie.MovieFragment"
-        android:label="MovieFragment" >
+        android:label="MovieFragment"
+        tools:layout="@layout/fragment_movie">
         <action
             android:id="@+id/action_movieFragment_to_tvShowFragment"
             app:destination="@id/tvFragment"

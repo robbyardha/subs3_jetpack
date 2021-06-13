@@ -21,6 +21,7 @@ import com.ardhacodes.subs1_jetpack.databinding.FragmentMovieBinding
 import com.ardhacodes.subs1_jetpack.ui.CallbackMovTv
 import com.ardhacodes.subs1_jetpack.ui.detail.DetailMovieTvActivity
 import com.ardhacodes.subs1_jetpack.ui.detail.DetailViewModel.Companion.MOVIE_VIEWMDL
+import com.ardhacodes.subs1_jetpack.ui.main.MainActivity
 import com.ardhacodes.subs1_jetpack.utils.Helper.EXTRA_MOVIE
 import com.ardhacodes.subs1_jetpack.utils.MoviesTvDataDummy
 import com.ardhacodes.subs1_jetpack.utils.SortUtils.VOTE_BEST
@@ -47,8 +48,8 @@ class MovieFragment : Fragment(), MovieAdapter.OnItemClickCallback {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
+            (activity as MainActivity).setActionBarTitle("Popular Movie")
             viewModelProviderConfig()
-
         }
     }
 
@@ -64,7 +65,7 @@ class MovieFragment : Fragment(), MovieAdapter.OnItemClickCallback {
 //
 
     fun viewModelProviderConfig() {
-
+        progressBarAction(true)
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewmodel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
         movieadapter = MovieAdapter()

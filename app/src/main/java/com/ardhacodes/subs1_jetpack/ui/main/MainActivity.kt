@@ -51,13 +51,13 @@ class MainActivity : AppCompatActivity() {
 //    fun setActionBarTitle(title: String) {
 //        supportActionBar?.title = title
 //    }
-private var _activityMainBinding: ActivityMainBinding? = null
-    private val binding get() = _activityMainBinding
+private var activityMainBinding: ActivityMainBinding? = null
+    private val binding get() = activityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        _activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
         setupBottomNav()
@@ -77,7 +77,7 @@ private var _activityMainBinding: ActivityMainBinding? = null
 
     override fun onDestroy() {
         super.onDestroy()
-        _activityMainBinding = null
+        activityMainBinding = null
     }
 
     fun setActionBarTitle(title: String) {
